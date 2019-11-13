@@ -12,9 +12,15 @@ output "imageid" {
   value="${data.hcloud_image.k8_master.id}"
 }
 
+resource "tls_private_key" "generated_key" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P384"
+}
+
+
 resource "hcloud_ssh_key" "gh" {
   name = "main ssh key"
-  public_key = "${file("~/.ssh/id_rsa.pub")}"
+  public_key = "${generated_key.public_key_pem}"
 }
 
 resource "hcloud_server" "k8-master" {

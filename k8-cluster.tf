@@ -20,7 +20,7 @@ resource "tls_private_key" "generated_key" {
 
 resource "hcloud_ssh_key" "gh" {
   name = "main ssh key"
-  public_key = "${generated_key.public_key_pem}"
+  public_key = "${tls_private_key.generated_key.public_key_pem}"
 }
 
 resource "hcloud_server" "k8-master" {

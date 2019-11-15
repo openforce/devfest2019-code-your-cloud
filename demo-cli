@@ -1,0 +1,7 @@
+cd projects/devfest-cyi/packer
+
+set -a
+source ../.evn
+set +a
+
+packer build gitlab.runner.json

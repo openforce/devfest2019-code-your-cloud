@@ -1,0 +1,22 @@
+{
+    "builders": [
+        {
+            "type": "hcloud",
+            "token": "",
+            "image": "debian-10",
+            "location": "nbg1",
+            "server_type": "cx21",
+            "ssh_username": "root",
+            "snapshot_labels": {
+                "name": "gitlab-runner"
+            },
+            "snapshot_name": "gitlab-runner"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "./ansible/gitlab-runner.yml"
+        }
+    ]
+}

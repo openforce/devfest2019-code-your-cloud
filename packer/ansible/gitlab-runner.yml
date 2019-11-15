@@ -1,0 +1,45 @@
+---
+- hosts: all
+  tasks:
+  - name: install packages for apt add repository over HTTPS
+    become: yes
+    apt:
+      name: "{{ packages }}"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+    vars:
+      packages:
+      - git
+      - apt-transport-https
+      - ca-certificates
+      - wget
+      - software-properties-common
+      - gnupg2
+      - curl
+  - name: add apt signing key from official docker repo
+    apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+  - name: add apt signing key from gitlab repo
+    apt_key:
+      url: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
+      state: present
+  - name: add docker official repository for Debian Buster
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+      state: present
+  - name: add gitlab repository for Debian
+    apt_repository:
+      repo: deb  https://packages.gitlab.com/runner/gitlab-runner/debian/ stretch main
+      state: present
+  - name: install docker
+    apt:
+      name: "docker-ce"
+      state: latest
+      update_cache: yes
+      force_apt_get: yes
+  - name: install gitlab-runner
+    apt:
+      name: gitlab-runner
+      state: latest

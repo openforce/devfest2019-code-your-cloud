@@ -2,7 +2,6 @@
     "builders": [
         {
             "type": "hcloud",
-            "token": "",
             "image": "debian-10",
             "location": "nbg1",
             "server_type": "cx21",

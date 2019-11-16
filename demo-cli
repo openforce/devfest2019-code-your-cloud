@@ -5,3 +5,12 @@ source ../.evn
 set +a
 
 packer build gitlab.runner.json
+
+
+
+cd projects/devfest-cyi/terraform
+
+terraform init
+terraform plan -auto-approve
+terraform apply -auto-approve
+terraform destroy
